@@ -1,0 +1,14 @@
+image: gitpod/workspace-full
+
+tasks:
+  - name: Setup Environment
+    command: |
+      # Instalar Maven si no está instalado
+      mvn --version || sdk install maven
+
+init:    
+  - ./mvnw clean install
+  - ./mvnw spring-boot:run
+
+
+
