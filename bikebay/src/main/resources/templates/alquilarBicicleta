@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Alquilar Bicicleta</title>
+</head>
+<body>
+    <h1>Alquilar Bicicleta</h1>
+    <form action="#" th:action="@{/bicicletas/alquilar}" th:object="${alquiler}" method="post">
+        <input type="hidden" th:field="*{bicicleta.id}" />
+        <div>
+            <label for="usuario">Usuario:</label>
+            <input type="text" id="usuario" th:field="*{usuario}" />
+        </div>
+        <div>
+            <label for="hora_inicio">Hora de Inicio:</label>
+            <input type="datetime-local" id="hora_inicio" th:field="*{hora_inicio}" />
+        </div>
+        <div>
+            <label for="hora_fin">Hora de Fin:</label>
+            <input type="datetime-local" id="hora_fin" th:field="*{hora_fin}" />
+        </div>
+        <div>
+            <button type="submit">Alquilar</button>
+        </div>
+    </form>
+    <a href="/bicicletas">Volver a la lista de bicicletas</a>
+</body>
+</html>

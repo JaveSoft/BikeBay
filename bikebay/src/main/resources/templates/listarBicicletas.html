@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Bicicletas</title>
+</head>
+<body>
+    <h1>Lista de Bicicletas</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Marca</th>
+                <th>Cicloparqueadero</th>
+                <th>Descripción</th>
+                <th>Fecha de Adquisición</th>
+                <th>Talla</th>
+                <th>Estado</th>
+                <th>Tarifa</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="bicicleta : ${bicicletas}">
+                <td th:text="${bicicleta.id}"></td>
+                <td th:text="${bicicleta.nombre}"></td>
+                <td th:text="${bicicleta.marca}"></td>
+                <td th:text="${bicicleta.cicloparqueadero.nombre}"></td>
+                <td th:text="${bicicleta.descripcion}"></td>
+                <td th:text="${bicicleta.fecha_adquisicion}"></td>
+                <td th:text="${bicicleta.talla}"></td>
+                <td th:text="${bicicleta.estado}"></td>
+                <td th:text="${bicicleta.tarifa}"></td>
+                <td>
+                    <form action="/bicicletas/eliminar" method="post">
+                        <input type="hidden" name="id" th:value="${bicicleta.id}">
+                        <button type="submit">Eliminar</button>
+                    </form>
+                    <a th:href="@{/bicicletas/editar/{id}(id=${bicicleta.id})}"><button>Editar</button></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="/">Volver a la pantalla principal</a>
+</body>
+</html>

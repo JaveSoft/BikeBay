@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Bicicleta</title>
+</head>
+<body>
+    <h1>Editar Bicicleta</h1>
+    <form action="#" th:action="@{/bicicletas/editar}" th:object="${bicicleta}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <div>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" th:field="*{nombre}" />
+        </div>
+        <div>
+            <label for="marca">Marca:</label>
+            <input type="text" id="marca" th:field="*{marca}" />
+        </div>
+        <div>
+            <label for="cicloparqueadero">Cicloparqueadero:</label>
+            <select id="cicloparqueadero" th:field="*{cicloparqueadero.id}">
+                <option th:each="cp : ${cicloparqueaderos}" th:value="${cp.id}" th:text="${cp.nombre}"></option>
+            </select>
+        </div>
+        <div>
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" th:field="*{descripcion}"></textarea>
+        </div>
+        <div>
+            <label for="fecha_adquisicion">Fecha de Adquisición:</label>
+            <input type="date" id="fecha_adquisicion" th:field="*{fecha_adquisicion}" />
+        </div>
+        <div>
+            <label for="talla">Talla:</label>
+            <input type="number" id="talla" th:field="*{talla}" />
+        </div>
+        <div>
+            <label for="estado">Estado:</label>
+            <input type="text" id="estado" th:field="*{estado}" />
+        </div>
+        <div>
+            <label for="tarifa">Tarifa:</label>
+            <input type="number" id="tarifa" th:field="*{tarifa}" />
+        </div>
+        <div>
+            <button type="submit">Guardar</button>
+        </div>
+    </form>
+    <a href="/bicicletas">Volver a la lista de bicicletas</a>
+</body>
+</html>

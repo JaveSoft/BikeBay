@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Añadir Bicicleta</title>
+</head>
+<body>
+    <h1>Añadir Bicicleta</h1>
+    <form action="/bicicletas" method="post">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre"><br>
+
+        <label for="marca">Marca:</label>
+        <input type="text" id="marca" name="marca"><br>
+
+        <label for="cicloparqueadero">Cicloparqueadero:</label>
+        <select id="cicloparqueadero" name="cicloparqueadero">
+            <option value="">Seleccione un cicloparqueadero</option>
+            <th:block th:each="cicloparqueadero : ${cicloparqueaderos}">
+                <option th:value="${cicloparqueadero.id}" th:text="${cicloparqueadero.nombre}"></option>
+            </th:block>
+        </select><br>
+
+        <label for="descripcion">Descripción:</label>
+        <input type="text" id="descripcion" name="descripcion"><br>
+
+        <label for="fecha_adquisicion">Fecha de Adquisición:</label>
+        <input type="date" id="fecha_adquisicion" name="fecha_adquisicion"><br>
+
+        <label for="talla">Talla:</label>
+        <input type="number" id="talla" name="talla"><br>
+
+        <label for="estado">Estado:</label>
+        <input type="text" id="estado" name="estado"><br>
+
+        <label for="tarifa">Tarifa:</label>
+        <input type="number" step="0.01" id="tarifa" name="tarifa"><br>
+
+        <button type="submit">Guardar</button>
+    </form>
+    
+    <div th:if="${param.success}">
+        <p>Bicicleta añadida exitosamente!</p>
+    </div>
+
+    <a href="/">Volver a la pantalla principal</a>
+</body>
+</html>
