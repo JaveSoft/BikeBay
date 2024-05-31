@@ -1,0 +1,6 @@
+
+![](https://www.plantuml.com/plantuml/png/VP5DJiCm48NtSmfVe1U8K5KA6oHsiA-czgGToJ_fUCm6UdSI8jiYI2pd9JFlUy-7h2XQWWUm7dCsHxPiFIb-0hl1l4Ib2md45Cv2WtbJuNY1W6AnJSj6cb1kXT2HfC4yRHHmbAtmP3d5jeR-LjYJK1xCAsTzU6p27aQoLpoXcvNCwzepAe6YzzYvQEPtgPrK51vn_ZMLioUurrHRdd_3PN9zEDS-AkIn2dl0YKIBp7xl70WiamZLeKofEpIG6l4NG3SPUly6IYuetCDTa-29uzB6Qf8LmxJA8yUjbllz3_H9MYkrisDAdZ0kSDtr_hNR_Ns-YltpkJC272Yw4lmt)
+
+Clases:
+* Cicloparqueadero: Representa el parqueadero donde se ubicaran las bicicletas en cada sede.
+* Bicicleta: Representa las caracteristicas de las bicicletas que se van a poder alquilar.
