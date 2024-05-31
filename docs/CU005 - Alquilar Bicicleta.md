@@ -1,4 +1,4 @@
-# CU002 - Alquilar Bicicleta
+# CU005 - Alquilar Bicicleta
 
 Flujo de eventos
 
@@ -6,10 +6,8 @@ Flujo de eventos
 |-------|---------|
 |1.Selecciona el boton "Alquilar bicicleta"|
 |2. Ingresa el periodo de tiempo que desea alquilarla|
-||3. Busca si la bicicleta se encuentra disponible en el periodo de tiempo que ingreso el usuario.|
-||4. Muestra un mensaje de confirmación|
-|5. Selecciona la opción "Alquilar"|
-||6. Elimina la disponibilidad de la bicicleta en el periodo de tiempo alquilado, registra el alquiler y cambia el estado de la bicicleta a "Alquilada"|
-||7. Muestra un mensaje de confirmación|
-||8. Retorna a la pantalla principal|
+|3. Selecciona la opción "Alquilar"|
+||4. Elimina la disponibilidad de la bicicleta en el periodo de tiempo alquilado, registra el alquiler y cambia el estado de la bicicleta a "Alquilada"|
+||5. Muestra un mensaje de confirmación|
+||6. Retorna a la pantalla principal|
 

@@ -25,70 +25,105 @@ public class ControladorBicicleta {
     @Autowired
     private RepositorioAlquiler rAlquiler;
 
+    // CU001 - Añadir Bicicleta
+
     @GetMapping("/bicicletas/nueva")
     public String mostrarFormulario(Model model) {
-        List<Cicloparqueadero> cicloparqueaderos = rcicloparqueadero.findAll();
-        model.addAttribute("bicicleta", new Bicicleta());
-        model.addAttribute("cicloparqueaderos", cicloparqueaderos);
-        return "añadirBicicleta";
-    }
+    // 1. Selecciona el boton "Añadir bicicleta"
+    List<Cicloparqueadero> cicloparqueaderos = rcicloparqueadero.findAll();
+    model.addAttribute("bicicleta", new Bicicleta());
+    model.addAttribute("cicloparqueaderos", cicloparqueaderos);
+    return "añadirBicicleta";
+}
 
-     // Getters y 
-     
     @PostMapping("/bicicletas")
     public String guardarBicicleta(@ModelAttribute Bicicleta bicicleta) {
-        rBicicleta.save(bicicleta);
-        return "redirect:/bicicletas/nueva?success";
-    }
+    // 2. Ingresa los datos de la bicicleta
+    // 3. Selecciona el cicloparqueadero donde se encuentra la bicicleta
+    // 4. Selecciona el boton "Guardar"
+    // 5. Registra los datos en la base de datos
+    rBicicleta.save(bicicleta);
+    // 6. Muestra un mensaje de confirmación
+    // 7. Retorna a la pantalla principal
+    return "redirect:/bicicletas/nueva?success";
 
+    // CU003 - Mostrar Bicicletas
+}
+    // 1. Selecciona el boton "Mostrar bicicletas"
     @GetMapping("/bicicletas")
     public String listarBicicletas(Model model) {
-        List<Bicicleta> bicicletas = rBicicleta.findAll();
-        model.addAttribute("bicicletas", bicicletas);
-        return "listarBicicletas";
-    }
+    // 2. Muestra una lista con las bicicletas registradas
+    List<Bicicleta> bicicletas = rBicicleta.findAll();
+    model.addAttribute("bicicletas", bicicletas);
+    return "listarBicicletas";
+}
+
+    // CU002 - Eliminar Bicicleta
 
     @PostMapping("/bicicletas/eliminar")
     public String eliminarBicicleta(@RequestParam Integer id, Model model) {
+        // 1. Selecciona el boton "Eliminar bicicleta"
+        // 2. Muestra un mensaje de confirmación de eliminación
+        // Se elimina la bicicleta con el ID proporcionado de la base de datos
         rBicicleta.deleteById(id);
+        // 3. Selecciona el boton "Aceptar"
+        // 4. Busca el ID de la bicicleta seleccionada en la base de datos
+        // 5. Elimina la bicicleta de la base de datos
+        // 6. Muestra un mensaje de confirmación
         model.addAttribute("successMessage", "Bicicleta eliminada exitosamente");
+        // 7. Retorna a la lista de bicicletas
         return "redirect:/bicicletas";
     }
 
+    // CU004 - Editar Bicicleta
+
+    // Paso 1: Selecciona el botón "Editar bicicleta"
     @GetMapping("/bicicletas/editar/{id}")
     public String mostrarFormularioEdicion(@PathVariable("id") Integer id, Model model) {
-        Bicicleta bicicleta = rBicicleta.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("ID de bicicleta inválido: " + id));
-        List<Cicloparqueadero> cicloparqueaderos = rcicloparqueadero.findAll();
-        model.addAttribute("bicicleta", bicicleta);
-        model.addAttribute("cicloparqueaderos", cicloparqueaderos);
-        return "editarBicicleta";
+    Bicicleta bicicleta = rBicicleta.findById(id).orElseThrow(() -> new IllegalArgumentException("ID de bicicleta inválido: " + id)); 
+    List<Cicloparqueadero> cicloparqueaderos = rcicloparqueadero.findAll();
+    // Paso 2: Cambia las características que requiera actualizar
+    model.addAttribute("bicicleta", bicicleta);
+    model.addAttribute("cicloparqueaderos", cicloparqueaderos);
+    // Mostrar el formulario de edición
+    return "editarBicicleta";
     }
-
+ 
+    // Paso 3: Selecciona el botón "Guardar"
     @PostMapping("/bicicletas/editar")
     public String actualizarBicicleta(@ModelAttribute Bicicleta bicicleta) {
-        rBicicleta.save(bicicleta);
-        return "redirect:/bicicletas?success";
+    // Paso 4: Actualiza los datos en la base de datos
+    rBicicleta.save(bicicleta);
+    // Paso 5: Muestra un mensaje de confirmación
+    // Paso 6: Retorna a la lista de bicicletas
+    return "redirect:/bicicletas?success";
     }
 
+    // CU005 - Alquilar Bicicleta
+
+    // Paso 1: Selecciona el botón "Alquilar bicicleta"
     @GetMapping("/bicicletas/alquilar/{id}")
     public String mostrarFormularioAlquiler(@PathVariable("id") Integer id, Model model) {
-        Bicicleta bicicleta = rBicicleta.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("ID de bicicleta inválido: " + id));
-        Alquiler alquiler = new Alquiler();
-        alquiler.setBicicleta(bicicleta);
-        model.addAttribute("alquiler", alquiler);
-        return "alquilarBicicleta";
+    Bicicleta bicicleta = rBicicleta.findById(id).orElseThrow(() -> new IllegalArgumentException("ID de bicicleta inválido: " + id));
+    Alquiler alquiler = new Alquiler();
+    alquiler.setBicicleta(bicicleta);
+    // Paso 2: Ingresa el periodo de tiempo que desea alquilarla
+    model.addAttribute("alquiler", alquiler);
+    return "alquilarBicicleta";
     }
 
+    // Paso 3: Selecciona la opción "Alquilar"
     @PostMapping("/bicicletas/alquilar")
     public String alquilarBicicleta(@ModelAttribute Alquiler alquiler) {
-        Bicicleta bicicleta = alquiler.getBicicleta();
-        alquiler.setEstado(true);
-        bicicleta.setEstado("Alquilada");
-        rBicicleta.save(bicicleta);
-        rAlquiler.save(alquiler);
-        return "redirect:/bicicletas?success";
+    Bicicleta bicicleta = alquiler.getBicicleta();
+    // Paso 4: Elimina la disponibilidad de la bicicleta en el periodo de tiempo alquilado, registra el alquiler y cambia el estado de la bicicleta a "Alquilada"
+    alquiler.setEstado(true);
+    bicicleta.setEstado("Alquilada");
+    rBicicleta.save(bicicleta);
+    rAlquiler.save(alquiler);
+    // Paso 5: Muestra un mensaje de confirmación
+    // Paso 6: Retorna a la pantalla principal
+    return "redirect:/bicicletas?success";
     }
 
 
