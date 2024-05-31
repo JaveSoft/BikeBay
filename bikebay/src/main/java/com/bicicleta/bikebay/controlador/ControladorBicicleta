@@ -33,6 +33,8 @@ public class ControladorBicicleta {
         return "añadirBicicleta";
     }
 
+     // Getters y 
+     
     @PostMapping("/bicicletas")
     public String guardarBicicleta(@ModelAttribute Bicicleta bicicleta) {
         rBicicleta.save(bicicleta);
