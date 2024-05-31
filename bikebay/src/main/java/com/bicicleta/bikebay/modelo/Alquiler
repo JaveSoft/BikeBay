@@ -1,0 +1,92 @@
+package modelo;
+
+import javax.persistence.*;
+import java.sql.Timestamp;
+
+@Entity
+public class Alquiler {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name = "bicicleta_id")
+    private Bicicleta bicicleta;
+
+    private String usuario;
+    private Timestamp hora_inicio;
+    private Timestamp hora_fin;
+    private Integer horas;
+    private Double valor;
+    private Boolean estado;
+
+    // Constructor sin argumentos
+    public Alquiler() {
+    }
+
+    // Getters y setters
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Bicicleta getBicicleta() {
+        return bicicleta;
+    }
+
+    public void setBicicleta(Bicicleta bicicleta) {
+        this.bicicleta = bicicleta;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public Timestamp getHora_inicio() {
+        return hora_inicio;
+    }
+
+    public void setHora_inicio(Timestamp hora_inicio) {
+        this.hora_inicio = hora_inicio;
+    }
+
+    public Timestamp getHora_fin() {
+        return hora_fin;
+    }
+
+    public void setHora_fin(Timestamp hora_fin) {
+        this.hora_fin = hora_fin;
+    }
+
+    public Integer getHoras() {
+        return horas;
+    }
+
+    public void setHoras(Integer horas) {
+        this.horas = horas;
+    }
+
+    public Double getValor() {
+        return valor;
+    }
+
+    public void setValor(Double valor) {
+        this.valor = valor;
+    }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
+    }
+}

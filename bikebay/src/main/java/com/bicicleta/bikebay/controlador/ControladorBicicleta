@@ -1,0 +1,93 @@
+package com.bicicleta.bikebay.controlador;
+
+import com.bicicleta.bikebay.modelo.Bicicleta;
+import com.bicicleta.bikebay.modelo.Cicloparqueadero;
+import com.bicicleta.bikebay.repositorio.RepositorioBicicleta;
+import com.bicicleta.bikebay.repositorio.RepositorioCicloparqueadero;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
+
+@Controller
+public class ControladorBicicleta {
+
+    @Autowired
+    private RepositorioBicicleta rBicicleta; 
+
+    @Autowired
+    private RepositorioCicloparqueadero rcicloparqueadero;
+
+    @Autowired
+    private RepositorioAlquiler rAlquiler;
+
+    @GetMapping("/bicicletas/nueva")
+    public String mostrarFormulario(Model model) {
+        List<Cicloparqueadero> cicloparqueaderos = rcicloparqueadero.findAll();
+        model.addAttribute("bicicleta", new Bicicleta());
+        model.addAttribute("cicloparqueaderos", cicloparqueaderos);
+        return "añadirBicicleta";
+    }
+
+    @PostMapping("/bicicletas")
+    public String guardarBicicleta(@ModelAttribute Bicicleta bicicleta) {
+        rBicicleta.save(bicicleta);
+        return "redirect:/bicicletas/nueva?success";
+    }
+
+    @GetMapping("/bicicletas")
+    public String listarBicicletas(Model model) {
+        List<Bicicleta> bicicletas = rBicicleta.findAll();
+        model.addAttribute("bicicletas", bicicletas);
+        return "listarBicicletas";
+    }
+
+    @PostMapping("/bicicletas/eliminar")
+    public String eliminarBicicleta(@RequestParam Integer id, Model model) {
+        rBicicleta.deleteById(id);
+        model.addAttribute("successMessage", "Bicicleta eliminada exitosamente");
+        return "redirect:/bicicletas";
+    }
+
+    @GetMapping("/bicicletas/editar/{id}")
+    public String mostrarFormularioEdicion(@PathVariable("id") Integer id, Model model) {
+        Bicicleta bicicleta = rBicicleta.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("ID de bicicleta inválido: " + id));
+        List<Cicloparqueadero> cicloparqueaderos = rcicloparqueadero.findAll();
+        model.addAttribute("bicicleta", bicicleta);
+        model.addAttribute("cicloparqueaderos", cicloparqueaderos);
+        return "editarBicicleta";
+    }
+
+    @PostMapping("/bicicletas/editar")
+    public String actualizarBicicleta(@ModelAttribute Bicicleta bicicleta) {
+        rBicicleta.save(bicicleta);
+        return "redirect:/bicicletas?success";
+    }
+
+    @GetMapping("/bicicletas/alquilar/{id}")
+    public String mostrarFormularioAlquiler(@PathVariable("id") Integer id, Model model) {
+        Bicicleta bicicleta = rBicicleta.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("ID de bicicleta inválido: " + id));
+        Alquiler alquiler = new Alquiler();
+        alquiler.setBicicleta(bicicleta);
+        model.addAttribute("alquiler", alquiler);
+        return "alquilarBicicleta";
+    }
+
+    @PostMapping("/bicicletas/alquilar")
+    public String alquilarBicicleta(@ModelAttribute Alquiler alquiler) {
+        Bicicleta bicicleta = alquiler.getBicicleta();
+        alquiler.setEstado(true);
+        bicicleta.setEstado("Alquilada");
+        rBicicleta.save(bicicleta);
+        rAlquiler.save(alquiler);
+        return "redirect:/bicicletas?success";
+    }
+
+
+}
