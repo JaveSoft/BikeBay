@@ -1,0 +1,8 @@
+package com.bicicleta.bikebay.repositorio;
+
+import com.bicicleta.bikebay.modelo.Alquiler;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RepositorioAlquiler extends JpaRepository<Alquiler, Integer> {
+
+}

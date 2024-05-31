@@ -1,0 +1,40 @@
+package com.bicicleta.bikebay.prueba;
+
+import com.bicicleta.bikebay.modelo.Bicicleta;
+import com.bicicleta.bikebay.repositorio.RepositorioBicicleta;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+public class ControladorTestBicicleta {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private BicicletaRepository rBicicleta;
+
+    @Test
+    public void testEliminarBicicleta() throws Exception {
+        // Crear una bicicleta de prueba
+        Bicicleta bicicleta = new Bicicleta();
+        bicicleta.setNombre("Bicicleta de Prueba");
+        bicicleta.setMarca("Marca de Prueba");
+        rBicicleta.save(bicicleta);
+
+        // Eliminar la bicicleta
+        mockMvc.perform(post("/bicicletas/eliminar")
+                .param("id", bicicleta.getId().toString()))
+                .andExpect(redirectedUrl("/bicicletas"));
+
+        // Verificar que la bicicleta ha sido eliminada
+        assertFalse(rBicicleta.findById(bicicleta.getId()).isPresent());
+    }
+}

@@ -1,0 +1,116 @@
+package modelo;
+
+import javax.persistence.*;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+public class Bicicleta {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    private String nombre;
+    private String marca;
+
+    @ManyToOne
+    @JoinColumn(name = "cicloparqueadero_id")
+    private Cicloparqueadero cicloparqueadero;
+
+    private String descripcion;
+
+    @OneToMany(mappedBy = "bicicleta", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Alquiler> alquileres = new ArrayList<>();
+
+    private Date fecha_adquisicion;
+    private Integer talla;
+    private String estado;
+    private Double tarifa;
+
+    // Constructor sin argumentos
+    public Bicicleta() {
+    }
+
+    // Getters y setters
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public Cicloparqueadero getCicloparqueadero() {
+        return cicloparqueadero;
+    }
+
+    public void setCicloparqueadero(Cicloparqueadero cicloparqueadero) {
+        this.cicloparqueadero = cicloparqueadero;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public List<Alquiler> getAlquileres() {
+        return alquileres;
+    }
+
+    public void setAlquileres(List<Alquiler> alquileres) {
+        this.alquileres = alquileres;
+    }
+
+    public Date getFecha_adquisicion() {
+        return fecha_adquisicion;
+    }
+
+    public void setFecha_adquisicion(Date fecha_adquisicion) {
+        this.fecha_adquisicion = fecha_adquisicion;
+    }
+
+    public Integer getTalla() {
+        return talla;
+    }
+
+    public void setTalla(Integer talla) {
+        this.talla = talla;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public Double getTarifa() {
+        return tarifa;
+    }
+
+    public void setTarifa(Double tarifa) {
+        this.tarifa = tarifa;
+    }
+}

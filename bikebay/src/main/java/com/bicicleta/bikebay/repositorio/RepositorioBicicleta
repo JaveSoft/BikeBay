@@ -1,0 +1,8 @@
+package com.bicicleta.bikebay.repositorio;
+
+import com.bicicleta.bikebay.modelo.Bicicleta;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RepositorioBicicleta extends JpaRepository<Bicicleta, Integer> {
+
+}
