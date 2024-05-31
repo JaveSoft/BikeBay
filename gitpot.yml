@@ -1,14 +1,22 @@
 image: gitpod/workspace-full
 
 tasks:
-  - name: Setup Environment
-    command: |
+  - name: Version Java
+    init: |
+      # Instalar Java 17
+      sdk install java 17.0.6-open
+      # Establecer Java 17 como la versión por defecto
+      sdk use java 17.0.6-open
       # Instalar Maven si no está instalado
       mvn --version || sdk install maven
+  - name: Compilar y ejecutar
+    init: ./mvnw clean install
+    command: ./mvnw spring-boot:run
 
-init:    
-  - ./mvnw clean install
-  - ./mvnw spring-boot:run
-
+vscode:
+  extensions:
+    - vscjava.vscode-java-pack
+    - pivotal.vscode-spring-boot
+    - esbenp.prettier-vscode
 
 
